@@ -1,0 +1,18 @@
+[package]
+name = "vpe_cpp"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "vpe_cpp"
+path = "src/vpe_cpp.rs"
+crate-type = ["staticlib"]
+
+[dependencies]
+vpe = { path="vp-engine" }
+winit = "0.28.3"
+nalgebra = "0.31.4"
+cxx = "1.0.97"
+
+[build-dependencies]
+cxx-build = "1.0.97"
