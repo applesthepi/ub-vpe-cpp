@@ -9,6 +9,7 @@ path = "src/vpe_cpp.rs"
 crate-type = ["staticlib"]
 
 [dependencies]
+ub_vpe_custom = { path="ub-vpe-custom" }
 vpe = { path="vp-engine" }
 vpb = { path="vp-engine/vp-base" }
 winit = "0.28.3"
