@@ -10,8 +10,8 @@ crate-type = ["staticlib"]
 
 [dependencies]
 ub_vpe_custom = { path="ub-vpe-custom" }
-vpe = { path="vp-engine" }
-vpb = { path="vp-engine/vp-base" }
+vpe = { path="ub-vpe-custom/vp-engine" }
+vpb = { path="ub-vpe-custom/vp-engine/vp-base" }
 winit = "0.28.3"
 nalgebra = "0.31.4"
 cxx = "1.0.97"
