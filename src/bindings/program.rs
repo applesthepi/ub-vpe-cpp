@@ -3,6 +3,7 @@ use self::{cxx_program::ProgramContext, handler::ProgramHandler};
 static mut PROGRAM_HANDLER: Option<ProgramHandler> = None;
 
 pub mod handler;
+pub mod custom;
 
 #[cxx::bridge(namespace = "vpe")]
 mod cxx_program {

@@ -10,6 +10,7 @@ crate-type = ["staticlib"]
 
 [dependencies]
 vpe = { path="vp-engine" }
+vpb = { path="vp-engine/vp-base" }
 winit = "0.28.3"
 nalgebra = "0.31.4"
 cxx = "1.0.97"

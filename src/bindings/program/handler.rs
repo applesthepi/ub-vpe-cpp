@@ -3,7 +3,7 @@ use std::sync::Arc;
 use nalgebra::vector;
 use winit::event_loop::EventLoop;
 
-use super::cxx_program::ProgramContext;
+use super::{cxx_program::ProgramContext, custom::add_buckets};
 
 pub struct ProgramHandler {
 	pub program_context: Box<ProgramContext>,
@@ -19,7 +19,7 @@ impl ProgramHandler {
 		let camera_state = Arc::new(vpe::CameraState2d::new(
 			vector![0.0, 0.0],
 		));
-		let program = vpe::Program::new(
+		let mut program = vpe::Program::new(
 			&program_context.name,
 			&event_loop,
 			("tiles",
@@ -29,6 +29,10 @@ impl ProgramHandler {
 					camera_state.clone(),
 				))
 			}),
+		);
+		add_buckets(
+			vpb::gmuc!(program.scene),
+			camera_state.clone(),
 		);
 		Self {
 			program_context,
