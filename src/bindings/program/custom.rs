@@ -7,7 +7,6 @@ use super::cxx_program::ProgramContext;
 
 #[allow(unused_mut)]
 pub fn setup_program(
-	event_loop: &EventLoop<()>,
 	program_context: &Box<ProgramContext>,
 ) -> vpe::Program {
 	let camera_state = Arc::new(vpe::CameraState2d::new(
@@ -15,7 +14,6 @@ pub fn setup_program(
 	));
 	let mut program = vpe::Program::new(
 		&program_context.name,
-		&event_loop,
 		(
 			"vpe_ui",
 			|program_data| {
