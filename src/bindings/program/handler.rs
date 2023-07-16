@@ -26,4 +26,12 @@ impl ProgramHandler {
 	) -> vpe::TickResult {
 		self.program.tick_events()
 	}
+
+	pub fn render(
+		&mut self,
+	) {
+		let scene = vpb::gmuc!(self.program.scene);
+		scene.render();
+		scene.input_state.mouse.scroll_delta = 0;
+	}
 }

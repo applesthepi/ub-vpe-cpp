@@ -1,7 +1,7 @@
 use self::{cxx_program::{ProgramContext, TickResult}, handler::ProgramHandler};
 
-static mut PROGRAM_HANDLER: Option<ProgramHandler> = None;
-const PROGRAM_INIT_ERROR: &'static str = "must be initialized before run";
+pub static mut PROGRAM_HANDLER: Option<ProgramHandler> = None;
+pub const PROGRAM_INIT_ERROR: &'static str = "must be initialized before run";
 
 pub mod handler;
 pub mod custom;
@@ -41,7 +41,7 @@ pub fn initialize(
 
 pub fn tick_events(
 ) -> TickResult { unsafe {
-	let mut program_handler = PROGRAM_HANDLER.take().expect(PROGRAM_INIT_ERROR);
+	let program_handler = PROGRAM_HANDLER.as_mut().expect(PROGRAM_INIT_ERROR);
 	TickResult { repr: program_handler.tick_events() as u8 }
 }}
 
