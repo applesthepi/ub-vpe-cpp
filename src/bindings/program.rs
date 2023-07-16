@@ -8,9 +8,15 @@ pub mod custom;
 pub mod context;
 
 #[cxx::bridge(namespace = "vpe")]
-mod cxx_program {
-	struct ProgramContext;
-	type TickResult;
+pub mod cxx_program {
+	pub struct ProgramContext {
+		pub name: String,
+	}
+	pub enum TickResult {
+		CONTINUE,
+		RENDER,
+		EXIT,
+	}
 	extern "Rust" {
 		fn initialize(
 			program_context: Box<ProgramContext>,
