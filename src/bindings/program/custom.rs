@@ -1,8 +1,35 @@
 use std::sync::Arc;
 
-pub fn add_buckets(
-	scene: &mut vpe::Scene,
-	camera_state: Arc<dyn vpe::Camera>,
-) {
-	
+use nalgebra::vector;
+use winit::event_loop::EventLoop;
+
+use super::cxx_program::ProgramContext;
+
+#[allow(unused_mut)]
+pub fn setup_program(
+	event_loop: &EventLoop<()>,
+	program_context: &Box<ProgramContext>,
+) -> vpe::Program {
+	let camera_state = Arc::new(vpe::CameraState2d::new(
+		vector![0.0, 0.0],
+	));
+	let mut program = vpe::Program::new(
+		&program_context.name,
+		&event_loop,
+		(
+			"vpe_ui",
+			|program_data| {
+				Arc::new(vpe::pipelines::ui_example::PipelineUIExample::new(
+					program_data,
+					camera_state.clone(),
+				))
+			},
+		),
+	);
+	// vpb::gmuc!(program.scene).add_bucket(
+	// 	"",
+	// 	|program_data| {
+	// 	},
+	// );
+	program
 }
