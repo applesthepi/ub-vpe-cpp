@@ -1,4 +1,4 @@
-use self::{cxx_program::ProgramContext, handler::ProgramHandler};
+use self::{cxx_program::{ProgramContext, TickResult}, handler::ProgramHandler};
 
 static mut PROGRAM_HANDLER: Option<ProgramHandler> = None;
 const PROGRAM_INIT_ERROR: &'static str = "must be initialized before run";
@@ -12,6 +12,7 @@ pub mod cxx_program {
 	pub struct ProgramContext {
 		pub name: String,
 	}
+	#[derive(Copy, Clone)]
 	pub enum TickResult {
 		CONTINUE,
 		RENDER,
@@ -21,7 +22,7 @@ pub mod cxx_program {
 		fn initialize(
 			program_context: Box<ProgramContext>,
 		);
-		fn tick_events() -> vpe::TickResult;
+		fn tick_events() -> TickResult;
 		fn register_pipeline(pipeline: String) -> u32;
 		fn register_object(object: String) -> u32;
 		fn create_object_instance(pipeline_id: u32, object_id: u32) -> u32;
@@ -39,9 +40,9 @@ pub fn initialize(
 }
 
 pub fn tick_events(
-) -> vpe::TickResult { unsafe {
+) -> TickResult { unsafe {
 	let mut program_handler = PROGRAM_HANDLER.take().expect(PROGRAM_INIT_ERROR);
-	program_handler.tick_events()
+	TickResult { repr: program_handler.tick_events() as u8 }
 }}
 
 pub fn register_pipeline(
